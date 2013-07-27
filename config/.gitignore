@@ -1,0 +1,5 @@
+# Do not save config files in the repository
+
+config.local.js
+config.stage.js
+config.production.js
