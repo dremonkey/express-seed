@@ -6,8 +6,7 @@
 
 var _ = require('lodash'),
     config = require('./config'),
-    express = require('express'),
-    RedisStore = require('connect-redis')(express);
+    express = require('express');
 
 require('express-namespace'); // needed for any route
 
@@ -58,10 +57,6 @@ if (config.server.viewsDir) app.set('views', config.server.viewsDir);
 app.use(express.logger('dev')); // log requests to the console
 app.use(express.bodyParser()); // extract data from the body of the request
 app.use(express.methodOverride());
-app.use(express.session({
-  secret: '1n@N2JX7m7AvkZIjMeVjmnU1dX6ehEnQp{}iaM1AQ${L%VTpWa[4TFqaQ#jHD8p&',
-  store: new RedisStore()
-}));
 
 // livereload middleware to insert livereload script snippet if not production
 if ('local' === app.get('env') || 'development' === app.get('env')) {
