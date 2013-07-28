@@ -1,2 +1,5 @@
+#Text Editor Files
+*.sublime*
+
 .nodemonignore
 node_modules/*
