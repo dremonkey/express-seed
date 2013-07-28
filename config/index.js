@@ -10,6 +10,11 @@
  */
 
 var env = process.env.NODE_ENV || 'local',
-    config = require('./config.' + env);
+    path = require('path'),
+    fs = require('fs'),
+    fn = path.resolve(__dirname, 'config.' + env + '.js');
+
+var exists = fs.existsSync(fn);
+var config = exists ? require('./config.' + env) : require('./config.base');
 
 module.exports = config;

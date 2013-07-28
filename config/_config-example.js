@@ -4,7 +4,7 @@
  * Example configuration file.
  */
 
-var config = require('./config.global.js'),
+var config = require('./config.base'),
     path = require('path');
 
 config.mongo = {

@@ -17,7 +17,7 @@ var app = module.exports = express();
 /** 
  * Bootstrap the database connection
  */
-require('./dbconnect.js')(config.mongo);
+if (config.mongo) require('./dbconnect.js')(config.mongo);
 
 /**
  * Template Configuration
@@ -57,7 +57,6 @@ if (config.server.viewsDir) app.set('views', config.server.viewsDir);
 
 app.use(express.logger('dev')); // log requests to the console
 app.use(express.bodyParser()); // extract data from the body of the request
-app.use(expressValidator()); // middleware for form data validation
 app.use(express.methodOverride());
 app.use(express.session({
   secret: '1n@N2JX7m7AvkZIjMeVjmnU1dX6ehEnQp{}iaM1AQ${L%VTpWa[4TFqaQ#jHD8p&',
@@ -88,13 +87,15 @@ app.use(express.errorHandler());
 
 /**
  * Bootstrap Routes
- * ex. require('./api/posts/routes')(app);
+ * ex. require('./example/routes')(app);
  */
 
 
-// Forward missing files to index.html
+// Forward missing files to index
 app.all('/*', function (req, res) {
-  res.sendfile('index.html', { root: config.server.clientDir });
+  // can be used instead of res.render() for single page applications
+  // res.sendfile('index.html', { root: config.server.viewsDir });
+  res.render('index.ect');
 });
 
 

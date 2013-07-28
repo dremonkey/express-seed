@@ -27,7 +27,7 @@ config.server = {
   staticDirs: path.resolve(__dirname, '../../client'),
 
   // The "views" directory used for server side templates - set to null for a single page application
-  viewsDir: path.resolve(__dirname, '/views')
+  viewsDir: path.resolve(__dirname, '../views')
 };
 
 module.exports = config;
