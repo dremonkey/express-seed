@@ -1,4 +1,4 @@
-#Text Editor Files
+# Text Editor Files
 *.sublime*
 
 .nodemonignore
