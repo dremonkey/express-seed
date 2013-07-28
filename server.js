@@ -7,10 +7,7 @@
 var _ = require('lodash'),
     config = require('./config'),
     express = require('express'),
-    passport = require('passport'),
-    expressValidator = require('express-validator'),
-    RedisStore = require('connect-redis')(express),
-    auth = require('./api/account/auth.js');
+    RedisStore = require('connect-redis')(express);
 
 require('express-namespace'); // needed for any route
 
@@ -66,7 +63,6 @@ app.use(express.session({
   secret: '1n@N2JX7m7AvkZIjMeVjmnU1dX6ehEnQp{}iaM1AQ${L%VTpWa[4TFqaQ#jHD8p&',
   store: new RedisStore()
 }));
-app.use(passport.initialize()); // middleware for authentication
 
 // livereload middleware to insert livereload script snippet if not production
 if ('local' === app.get('env') || 'development' === app.get('env')) {
@@ -89,19 +85,12 @@ if (config.server.staticDirs) {
 // A standard error handler - picks up any left over errors and returns a nicely formatted server 500 error
 app.use(express.errorHandler());
 
-/**
- * Passport Configuration
- */
-passport.use(auth.localStrategy());
-passport.use(auth.googleStrategy());
-
 
 /**
  * Bootstrap Routes
+ * ex. require('./api/posts/routes')(app);
  */
 
-require('./api/posts/routes')(app);
-require('./api/account/routes')(app);
 
 // Forward missing files to index.html
 app.all('/*', function (req, res) {

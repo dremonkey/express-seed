@@ -1,6 +1,6 @@
 # Particle Express Seed
 
-This is a simple express server seed with multiple environment configuration files and yeoman integration. The main purpose of this is to serve as a server seed for other projects. Grunt tasks handle code validation and reloading on file changes. I built this to be used as a git sub-module in my other applications, not as a standalone app. If you are looking for a standalone express seed app check out [node-express-mongoose-demo](https://github.com/madhums/node-express-mongoose-demo).  
+This is a simple express server seed with multiple environment configuration files and yeoman/grunt integration. The main purpose of this is to serve as a server seed for other projects. Grunt tasks handle code validation and reloading on file changes. I built this to be used as a git sub-module in my other applications, not as a standalone app. If you are looking for a standalone express seed app check out [node-express-mongoose-demo](https://github.com/madhums/node-express-mongoose-demo).  
 
 ## Using Configuration Files
 
