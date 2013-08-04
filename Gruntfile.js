@@ -72,35 +72,12 @@ module.exports = function (grunt) {
       }
     },
 
-    // Restarts the nodejs server when files change
-    // nodemon: {
-    //   options: {
-    //     file: 'server.js',
-    //     watchedExtensions: ['js'],
-    //     ignoredFiles: ['Gruntfile.js', 'node_modules/**/*.js']
-    //   },
-    //   dev: {
-    //     options: {
-    //       env: {
-    //         NODE_ENV: 'local'
-    //       }
-    //     }
-    //   },
-    //   dist: {
-    //     options: {
-    //       env: {
-    //         NODE_ENV: 'stage'
-    //       }
-    //     }
-    //   }
-    // },
-
     concurrent: {
       dev: {
         options: {
           logConcurrentOutput: true
         },
-        // tasks: ['nodemon']
+        tasks: []
       }
     },
 
@@ -114,7 +91,8 @@ module.exports = function (grunt) {
         options: {
           port: 9000,
           server: '<%= paths.srv.tld %>/server.js',
-          serverreload: true
+          serverreload: true,
+          livereload: true
         }
       },
       dist: {
