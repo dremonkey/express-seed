@@ -4,11 +4,12 @@
  * Module dependencies
  */
 
-var _ = require('lodash'),
-    config = require('./config'),
-    express = require('express');
+require('express-namespace');
 
-require('express-namespace'); // needed for any route
+var
+  _ = require('lodash'),
+  config = require('./config'),
+  express = require('express');
 
 // expose app
 var app = module.exports = express();
@@ -59,14 +60,14 @@ app.use(express.bodyParser()); // extract data from the body of the request
 app.use(express.methodOverride());
 
 // livereload middleware to insert livereload script snippet if not production
-if ('local' === app.get('env') || 'development' === app.get('env')) {
-  console.log('Adding livereload script');
-  var lr = require('connect-livereload')({
-    port: config.server.liveReloadPort
-  });
-  lr.middlewarePriority = -1;
-  app.use(lr);
-}
+// if ('local' === app.get('env') || 'development' === app.get('env')) {
+//   console.log('Adding livereload script');
+//   var lr = require('connect-livereload')({
+//     port: config.server.liveReloadPort
+//   });
+//   lr.middlewarePriority = -1;
+//   app.use(lr);
+// }
 
 // Set the directory that express should serve static files from
 if (config.server.staticDirs) {
