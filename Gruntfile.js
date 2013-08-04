@@ -41,7 +41,7 @@ module.exports = function (grunt) {
    */
 
   // Run 'grunt dev' for live-reloading development environment
-  grunt.registerTask('dev', ['env:dev', 'build:dev', 'server:dev', 'concurrent:dev']);
+  grunt.registerTask('dev', ['env:dev', 'build:dev', 'concurrent:dev', 'server:dev']);
 
   // Run 'grunt dist' to build and run the distribution environment
   grunt.registerTask('dist', ['env:dist', 'build:dist', 'server:dist']);
@@ -51,7 +51,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build:dist', ['jshint']);
 
   // Start the express server and open the site in a browser
-  grunt.registerTask('server:dev', ['express:dev', 'open:dev']);
+  grunt.registerTask('server:dev', ['open:dev','express:dev']);
   grunt.registerTask('server:dist', ['express:dist', 'open:dist', 'express-keepalive']);
 
 
@@ -73,34 +73,34 @@ module.exports = function (grunt) {
     },
 
     // Restarts the nodejs server when files change
-    nodemon: {
-      options: {
-        file: 'server.js',
-        watchedExtensions: ['js'],
-        ignoredFiles: ['Gruntfile.js', 'node_modules/**/*.js']
-      },
-      dev: {
-        options: {
-          env: {
-            NODE_ENV: 'local'
-          }
-        }
-      },
-      dist: {
-        options: {
-          env: {
-            NODE_ENV: 'stage'
-          }
-        }
-      }
-    },
+    // nodemon: {
+    //   options: {
+    //     file: 'server.js',
+    //     watchedExtensions: ['js'],
+    //     ignoredFiles: ['Gruntfile.js', 'node_modules/**/*.js']
+    //   },
+    //   dev: {
+    //     options: {
+    //       env: {
+    //         NODE_ENV: 'local'
+    //       }
+    //     }
+    //   },
+    //   dist: {
+    //     options: {
+    //       env: {
+    //         NODE_ENV: 'stage'
+    //       }
+    //     }
+    //   }
+    // },
 
     concurrent: {
       dev: {
         options: {
           logConcurrentOutput: true
         },
-        tasks: ['nodemon']
+        // tasks: ['nodemon']
       }
     },
 
@@ -113,7 +113,8 @@ module.exports = function (grunt) {
       dev: {
         options: {
           port: 9000,
-          server: '<%= paths.srv.tld %>/server.js'
+          server: '<%= paths.srv.tld %>/server.js',
+          serverreload: true
         }
       },
       dist: {
