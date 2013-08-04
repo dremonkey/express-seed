@@ -1,33 +1,39 @@
 'use strict';
 
-var path = require('path'),
-    config = {};
+/**
+ * Base Configuration File
+ *
+ * Should be considered production configurations. But do not put any sensitive information, such as 
+ * api keys or db connection information, in here because this is version controlled.
+ */
 
-// webserver config
-config.server = {
+var
+  path = require('path'),
+  config = {};
+
+config = {
 
   // Set the Template Engine
   // Currently supports jade, dustjs, ect, and html via ect
   tplEngine: 'ect',
 
-  // * NOT USED LOCALLY *
-  // The port that the server is to listen to (http://localhost:3000 for instance)
-  port: 3000,
-  
-  // The HTTPS port that the server is to listen to (https://localhost:8433 for instance)
-  securePort: 8433,
+  ports: {
+    // The port that the web server is to listen to (i.e. http://localhost:3000)
+    web: 3000,
 
-  liveReloadPort: 35729,
+    // The HTTPS port that the server is to listen to (i.e. https://localhost:8433)
+    secure: 8433,
 
-  // Client side application directory
-  clientDir: path.resolve(__dirname, '../../client/app'),
-  
-  // * NOT USED LOCALLY *
-  // The directory from which we serve static files - all paths relative to this file. If multiple, use an array.
-  staticDirs: path.resolve(__dirname, '../../client'),
+    // Port for livereload to run on
+    liveReload: 35729
+  },
+  dirs: {
+    // The "views" directory used for templates
+    views: path.resolve(__dirname, '../../client'),
 
-  // The "views" directory used for server side templates - set to null for a single page application
-  viewsDir: path.resolve(__dirname, '../views')
+    // The directory from which we serve static files. If multiple, use an array.
+    static: path.resolve(__dirname, '../views')
+  }
 };
 
 module.exports = config;

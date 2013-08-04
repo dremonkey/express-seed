@@ -9,10 +9,9 @@ require('express-namespace');
 var
   _ = require('lodash'),
   config = require('./config'),
-  express = require('express');
+  express = require('express'),
+  app = express();
 
-// expose app
-var app = module.exports = express();
 
 /** 
  * Bootstrap the database connection
@@ -22,7 +21,7 @@ if (config.mongo) require('./dbconnect.js')(config.mongo);
 /**
  * Template Configuration
  */
-switch (config.server.tplEngine) {
+switch (config.tplEngine) {
 case 'jade':
   app.set('view engine', 'jade');
   break;
@@ -47,13 +46,13 @@ case 'html' :
   break;
 }
 
-// set views directory for server side templates
-if (config.server.viewsDir) app.set('views', config.server.viewsDir);
-
 
 /**
  * Express Configurations
  */
+
+// set views directory for server side templates
+app.set('views', config.dirs.views);
 
 app.use(express.logger('dev')); // log requests to the console
 app.use(express.bodyParser()); // extract data from the body of the request
@@ -69,11 +68,13 @@ app.use(express.methodOverride());
 //   app.use(lr);
 // }
 
-// Set the directory that express should serve static files from
-if (config.server.staticDirs) {
-  var staticDirs = _.isString(config.server.staticDirs) ? [config.server.staticDirs] : config.server.staticDirs;
-  for (var i = staticDirs.length - 1; i >= 0; i--) {
-    app.use(express.static(staticDirs[i]));
+// Set the directory(s) that express should serve static files from
+if (config.dirs.static) {
+  var
+    staticDir = _.isString(config.dirs.static) ? [config.dirs.static] : config.dirs.static,
+    maxAge = 30 * 24 * 60 * 60 * 1000; // 30 day cache control in milliseconds 
+  for (var i = staticDir.length - 1; i >= 0; i--) {
+    app.use(express.static(staticDir[i], {maxAge: maxAge}));
   }
 }
 
@@ -96,12 +97,15 @@ app.all('/*', function (req, res) {
 
 
 /**
- * Start Server * NOT NEEDED... handled by grunt-express *
+ * Start Server * Only for Production * Local is handled by Grunt
  */
-if ('prod' === app.get('env')) {
+if ('production' === app.get('env')) {
   var http = require('http');
-  app.set('port', process.env.PORT || config.server.port);
+  app.set('port', process.env.PORT || config.ports.http);
   http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
   });
 }
+
+  // expose app
+module.exports = app;
