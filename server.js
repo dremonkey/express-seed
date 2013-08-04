@@ -82,9 +82,9 @@ app.use(express.errorHandler());
 
 /**
  * Bootstrap Routes
- * ex. require('./example/routes')(app);
+ * ex. require('./app/example/routes')(app);
  */
-
+require('./app/example/routes')(app);
 
 // Forward missing files to index
 app.all('/*', function (req, res) {
