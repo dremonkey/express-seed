@@ -1,8 +1,0 @@
-{>layout/}
-{<content}
-
-  <div>
-    <h2>My App</h2>
-  </div>
-
-{/content}

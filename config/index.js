@@ -1,20 +1,22 @@
 'use strict';
 
-/**
- * Loads configurations based on current NODE_ENV
- *
- * In any file where you want to access configurations use require('./path/to/config')
- * For example: 
- *    
- *    var config = require('./config');
- */
+var _config, get, load, loader;
 
-var env = process.env.NODE_ENV || 'local',
-    path = require('path'),
-    fs = require('fs'),
-    fn = path.resolve(__dirname, 'config.' + env + '.js');
+loader = require('./loader');
 
-var exists = fs.existsSync(fn);
-var config = exists ? require('./config.' + env) : require('./config.base');
+load = function () {
+  return loader().then(function () {
+    var env = process.env.NODE_ENV || 'development';
 
-module.exports = config;
+    // Cache the config.js object so we can
+    // retrieve it later using get()
+    _config = require('../config.js')[env];
+  });
+};
+
+get = function () {
+  return _config;
+};
+
+module.exports.get = get;
+module.exports.load = load;

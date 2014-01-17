@@ -1,125 +1,111 @@
 'use strict';
 
-var path = require('path');
+var path, paths;
 
-/** 
- * Directory and File Path Configuration
- */
+path = require('path');
 
-var paths = {
+// ## Directory and File Path Configurations
 
-  client: {
-    tld: path.resolve(__dirname, '../client')
-  },
+paths = {
 
-  // Compiled Assets Directory
-  compiled: {
-    tld: path.resolve(__dirname, '../.tmp')
-  },
-
-  // Server Directory and Paths
-  srv: {
-    tld: __dirname, // directory path to top level
-    dirs: {},
+  server: {
+    tld: __dirname,
     files: {
-      views: [
-        '<%= paths.srv.tld %>/views/**/*.{jade,ect,dust,html}',
-        '<%= paths.srv.tld %>/views/{,*/}*.{jade,ect,dust,html}'
-      ],
       scripts: [
-        '<%= paths.srv.tld %>/**/*.js',
-        '!<%= paths.srv.tld %>/node_modules/**/*.js'
+        '<%= paths.server.tld %>/**/*.js',
+        '!<%= paths.server.tld %>/node_modules/**/*.js'
       ]
+    }
+  },
+
+  heroku: {
+    tld: path.normalize(__dirname + '../../_heroku'),
+    dirs: {
+      server: '<%= paths.heroku.tld %>/server'
     }
   }
 };
 
 module.exports = function (grunt) {
 
-  /**
-   * Register all Grunt Tasks
-   */
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
 
-  // Run 'grunt dev' for live-reloading development environment
-  grunt.registerTask('dev', ['env:dev', 'build:dev', 'concurrent:dev', 'server:dev']);
+  // Time how long tasks take. Can help when optimizing build times
+  require('time-grunt')(grunt);
 
-  // Run 'grunt dist' to build and run the distribution environment
-  grunt.registerTask('dist', ['env:dist', 'build:dist', 'server:dist']);
-
-  // Clean, validate & compile web-accessible resources
-  grunt.registerTask('build:dev', ['jshint']);
-  grunt.registerTask('build:dist', ['jshint']);
-
-  // Start the express server and open the site in a browser
-  grunt.registerTask('server:dev', ['open:dev','express:dev']);
-  grunt.registerTask('server:dist', ['express:dist', 'open:dist', 'express-keepalive']);
-
-
-  /**
-   * Grunt Configurations
-   */
+  // ## Define the configuration for all the tasks
 
   grunt.initConfig({
 
     paths: paths,
 
-    env: {
-      dev: {
-        NODE_ENV: 'local'
+    watch: {
+      express: {
+        files: [
+          'server.js',
+          'middleware/**/*.js'
+        ],
+        tasks:  ['express:dev']
       },
-      dist: {
-        NODE_ENV: 'stage'
-      }
-    },
-
-    concurrent: {
-      dev: {
-        options: {
-          logConcurrentOutput: true
-        },
-        tasks: []
-      }
-    },
-
-    // Express requires 'server.js' to reload from changes
-    express: {
       options: {
-        hostname: 'localhost',
-        port: 9000
+        //Without this option the specified express won't be reloaded
+        nospawn: true
+      }
+    },
+
+    express: {
+      // jshint camelcase:false
+      options: {
+        script: '<%= paths.server.tld %>/server.js',
+        port: 3000
       },
       dev: {
         options: {
-          port: 9000,
-          server: '<%= paths.srv.tld %>/server.js',
-          serverreload: true,
-          livereload: true
+          node_env: 'development',
+          debug: true
         }
       },
       dist: {
         options: {
-          port: 9000,
-          server: '<%= paths.srv.tld %>/server.js'
+          node_env: 'production'
         }
       }
     },
 
-    // Automatically open browser
-    open: {
-      dev: {
-        url: 'http://localhost:<%= express.dev.options.port %>'
+    copy: {
+
+      // Copy files from server -> heroku/server
+      heroku: {
+        files: [{
+          expand: true,
+          cwd: '<%= paths.server.tld %>',
+          src: [
+            'config/*.js',
+            'utils/*.js',
+            'middleware/*.js',
+            'server.js'
+          ],
+          dest: '<%= paths.heroku.dirs.server %>'
+        }]
       },
-      dist: {
-        url: 'http://localhost:<%= express.dist.options.port %>'
+    },
+
+    // Automatically g browser
+    open: {
+      all: {
+        path: 'http://127.0.0.1:<%= express.options.port %>'
       }
     },
 
     // Check javascript for errors
     jshint: {
       options: {
-        jshintrc: '.jshintrc'
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish')
       },
       all: [
-        '<%= paths.srv.files.scripts %>'
+        '<%= paths.server.files.scripts %>'
       ]
     },
 
@@ -131,9 +117,31 @@ module.exports = function (grunt) {
     }
   });
 
+  // ## Register all Grunt Tasks
 
-  /**
-   * Load all dev grunt task dependencies
-   */
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  grunt.registerTask('serve', function (target) {
+    if (target === 'dist') {
+      return grunt.task.run([
+        'build',
+        'express:dist',
+        'open'
+      ]);
+    }
+
+    grunt.task.run([
+      'newer:jshint:all',
+      'build',
+      'express:dev',
+      'open',
+      'watch'
+    ]);
+  });
+
+  grunt.registerTask('build', []);
+
+  grunt.registerTask('heroku', [
+    'newer:jshint:all',
+    'build',
+    'copy:heroku'
+  ]);
 };

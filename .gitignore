@@ -1,5 +1,8 @@
 # Text Editor Files
 *.sublime*
 
-.nodemonignore
+# Ignore Modules
 node_modules/*
+
+# Ignore Config File
+config.js
