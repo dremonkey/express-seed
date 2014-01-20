@@ -25,7 +25,7 @@ createConfig = function () {
     
     var read, write;
 
-    log.info('Creating new config file...')
+    log.info('Creating new config file...');
 
     if (!exists) {
       log.error('Could not find config.example.js for read');

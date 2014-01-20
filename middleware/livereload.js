@@ -8,7 +8,7 @@ log = require('../utils/logger');
 livereload = function (server, config) {
   var lr;
 
-  log.info('Adding livereload script')
+  log.info('Adding livereload script');
 
   // Insert livereload script snippet at the bottom of the page
   lr = require('connect-livereload')({port: config.livereload});
