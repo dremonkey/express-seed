@@ -17,6 +17,9 @@ config.development = {
     static: path.resolve(__dirname, './assets')
   },
   livereload: 35729,
+  prerender: {
+    token: ''
+  },
   server: {
     // Host to be passed to node's `net.Server#listen()`
     host: '127.0.0.1',
@@ -36,6 +39,9 @@ config.production = {
     static: path.resolve(__dirname, './assets')
   },
   livereload: false,
+  prerender: {
+    token: ''
+  },
   server: {
     // Host to be passed to node's `net.Server#listen()`
     host: '127.0.0.1',

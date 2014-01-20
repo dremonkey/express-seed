@@ -1,11 +1,12 @@
 'use strict';
 
-var _, express, middleware, livereload;
+var _, express, middleware, livereload, prerender;
 
 // Module dependencies
 _ = require('lodash');
 express = require('express');
 livereload = require('./livereload');
+prerender = require('prerender-node');
 
 middleware = function (server, config) {
 
@@ -43,6 +44,9 @@ middleware = function (server, config) {
       server.use(express.static(staticDirs[i], {maxAge: maxAge}));
     }
   }
+
+  // ## Prerender
+  if (config.prerender.token) server.use(prerender.set('prerenderToken', config.prerender.token));
 
   // ## Livereload 
 
