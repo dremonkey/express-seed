@@ -36,7 +36,7 @@ Basic server seed. Assumes that you will be compiling your view files server sid
 
 ### SPA (Single Page Application)
 
-For the most part exactly the same as the master branch. Only real difference is that by default all routes go to the index page so that your clientside framework can take care of routing. My preferred framework is AngularJS, so this is designed to work with my (https://github.com/dremonkey/particle-angular-seed)[angular seed app].
+For the most part exactly the same as the master branch. Only real difference is that by default all routes go to the index page so that your clientside framework can take care of routing. My preferred framework is AngularJS, so this is designed to work with my [angular seed app](https://github.com/dremonkey/particle-angular-seed).
 
 More Info
 ---------
