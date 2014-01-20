@@ -38,8 +38,7 @@ init = function (server) {
 
   // Forward remaining requests to index
   server.all('/*', function (req, res) {
-    res.render('index.ect');
-    // res.sendfile('index.html', {root: server.get('views')});
+    res.sendfile('index.html', {root: server.get('views')});
   });
 
   // ## Error Handler
