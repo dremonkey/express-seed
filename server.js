@@ -1,12 +1,13 @@
 'use strict';
 
-var config, express, http, init, middleware, routes;
+var config, express, http, init, log, middleware, routes;
 
 // Module dependencies
 config = require('./config/index.js');
 express = require('express');
-middleware = require('./middleware');
 http = require('http');
+log = require('./utils/logger');
+middleware = require('./middleware');
 routes = require('./routes');
 
 // Sets up the express server instance
@@ -48,7 +49,7 @@ init = function (server) {
   function startServer () {
     server.set('port', _config.server.port);
     http.createServer(server).listen(server.get('port'), function () {
-      console.log('Express server listening on port ' + server.get('port'));
+      log.info('Express server listening on port ' + server.get('port'));
     });
   }
 
@@ -58,6 +59,6 @@ init = function (server) {
 
 // Initializes the server
 config.load().then(function () {
-  console.log('Configurations loaded... initializing the server');
+  log.info('Configurations loaded... initializing the server');
   init(express());
 });

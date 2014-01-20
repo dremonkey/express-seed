@@ -2,12 +2,13 @@
 
 // Loads configurations based on current NODE_ENV
 
-var createConfig, fs, path, pexcf, pconf, loadConfig, when;
+var createConfig, fs, path, pexcf, pconf, loadConfig, log, when;
 
 // Module Dependences
 path = require('path');
 fs = require('fs');
 when =  require('when');
+log = require('../utils/logger');
 
 // File Paths
 pexcf = path.resolve(__dirname, '../config.example.js');
@@ -24,22 +25,22 @@ createConfig = function () {
     
     var read, write;
 
-    if (!exists) {
-      console.log('Could not open config.example.js for read');
-    }
+    log.info('Creating new config file...')
 
-    console.log('Creating new config file');
+    if (!exists) {
+      log.error('Could not find config.example.js for read');
+    }
 
     // Copy config.example.js => config.js
     read = fs.createReadStream(pexcf);
     read.on('error', function (err) {
-      console.log('Could not open config.example.js for read', err);
+      log.error('Could not open config.example.js for read', err);
       return;
     });
 
     write = fs.createWriteStream(pconf);
     write.on('error', function (err) {
-      console.log('Could not open config.js for write', err);
+      log.error('Could not open config.js for write', err);
       return;
     });
 

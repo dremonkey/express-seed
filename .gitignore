@@ -1,3 +1,6 @@
+# System Files
+*.DS_Store
+
 # Text Editor Files
 *.sublime*
 

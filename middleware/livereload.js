@@ -1,10 +1,14 @@
 'use strict';
 
-var livereload;
+var livereload, log;
+
+// Module Dependencies
+log = require('../utils/logger');
 
 livereload = function (server, config) {
   var lr;
-  console.log('Adding livereload script');
+
+  log.info('Adding livereload script')
 
   // Insert livereload script snippet at the bottom of the page
   lr = require('connect-livereload')({port: config.livereload});
