@@ -9,8 +9,10 @@ livereload = require('./livereload');
 prerender = require('prerender-node');
 
 middleware = function (server, config) {
-
   var viewEngine;
+
+  // views directory
+  server.set('views', config.dirs.views);
 
   // ## View Engine
 
@@ -38,7 +40,7 @@ middleware = function (server, config) {
   // Set the directory(s) to serve static files from
   if (config.dirs.static) {
     var staticDirs, maxAge;
-    staticDirs = _.isString(config.dirs.static) ? [config.dirs.static] : config.dirs.static;
+    staticDirs = [].concat(config.dirs.static);
     maxAge = 30 * 24 * 60 * 60 * 1000; // 30 day cache control in milliseconds 
     for (var i = staticDirs.length - 1; i >= 0; i--) {
       server.use(express.static(staticDirs[i], {maxAge: maxAge}));
