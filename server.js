@@ -19,9 +19,6 @@ init = function (server) {
   // Retrieve the configuration object
   _config = config.get();
 
-  // views directory
-  server.set('views', _config.dirs.views);
-
   // log requests to the console
   server.use(express.logger('dev'));
 

@@ -11,8 +11,12 @@ middleware = function (server, config) {
 
   var viewEngine;
 
-  // ## View Engine
+  // ## Views
 
+  // views directory
+  server.set('views', config.dirs.views);
+
+  // view engine
   switch (config.viewEngine) {
     case 'jade':
       server.set('view engine', 'jade');
@@ -37,7 +41,7 @@ middleware = function (server, config) {
   // Set the directory(s) to serve static files from
   if (config.dirs.static) {
     var staticDirs, maxAge;
-    staticDirs = _.isString(config.dirs.static) ? [config.dirs.static] : config.dirs.static;
+    staticDirs = [].concat(config.dirs.static);
     maxAge = 30 * 24 * 60 * 60 * 1000; // 30 day cache control in milliseconds 
     for (var i = staticDirs.length - 1; i >= 0; i--) {
       server.use(express.static(staticDirs[i], {maxAge: maxAge}));
