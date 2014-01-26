@@ -10,12 +10,13 @@ prerender = require('prerender-node');
 
 middleware = function (server, config) {
   var viewEngine;
+  
+  // ## Views
 
   // views directory
   server.set('views', config.dirs.views);
 
-  // ## View Engine
-
+  // view engine
   switch (config.viewEngine) {
     case 'jade':
       server.set('view engine', 'jade');
