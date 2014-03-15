@@ -33,6 +33,11 @@ middleware = function (server, config) {
       break;
   }
 
+  // ## Livereload 
+  if (config.livereload) {
+    livereload(server, config);
+  }
+
   // ## Static Files
   
   // return the correct mime type for woff filess
@@ -50,12 +55,6 @@ middleware = function (server, config) {
 
   // ## Prerender
   if (config.prerender.token) server.use(prerender.set('prerenderToken', config.prerender.token));
-
-  // ## Livereload 
-
-  // if (config.livereload) {
-  //   livereload(server, config);
-  // }
 };
 
 module.exports = middleware;
