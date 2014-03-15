@@ -33,6 +33,11 @@ middleware = function (server, config) {
       break;
   }
 
+  // ## Livereload 
+  if (config.livereload) {
+    livereload(server, config);
+  }
+
   // ## Static Files
   
   // return the correct mime type for woff filess
@@ -47,12 +52,6 @@ middleware = function (server, config) {
       server.use(express.static(staticDirs[i], {maxAge: maxAge}));
     }
   }
-
-  // ## Livereload 
-
-  // if (config.livereload) {
-  //   livereload(server, config);
-  // }
 };
 
 module.exports = middleware;
