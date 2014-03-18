@@ -31,7 +31,7 @@ init = function (server) {
   middleware(server, _config);
 
   // ## Initialize Routes
-  routes.api(server);
+  routes.api(server, _config);
 
   // Forward remaining requests to index
   server.all('/*', function (req, res) {
