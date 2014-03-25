@@ -1,13 +1,28 @@
 'use strict';
 
-var _, express, middleware, livereload;
-
 // Module dependencies
-_ = require('lodash');
-express = require('express');
-livereload = require('./livereload');
+var _ = require('lodash')
+  , express = require('express')
+  , livereload = require('./livereload');
 
-middleware = function (server, config) {
+var middleware = function (server, config) {
+
+  // log requests to the console
+  server.use(express.logger('dev'));
+
+  // setup encrypted session cookies
+  if (config.server.secret) {
+    server.use(express.cookieParser());
+    server.use(express.session({secret: config.server.secret}));
+  }
+
+  // For security sake, it's better to disable file upload if your application doesn't need it. 
+  // To do this, don't use the bodyParser and multipart() middleware
+  // @see http://expressjs.com/api.html#bodyParser
+  server.use(express.json());
+  server.use(express.urlencoded());
+
+  server.use(express.methodOverride());
 
   var viewEngine;
 
@@ -52,6 +67,10 @@ middleware = function (server, config) {
       server.use(express.static(staticDirs[i], {maxAge: maxAge}));
     }
   }
+
+  // ## Error Handler
+  // Picks up any left over errors and returns a nicely formatted server 500 error
+  server.use(express.errorHandler());
 };
 
 module.exports = middleware;

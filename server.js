@@ -19,14 +19,6 @@ init = function (server) {
   // Retrieve the configuration object
   _config = config.get();
 
-  // log requests to the console
-  server.use(express.logger('dev'));
-
-  // extract data from the body of the request
-  server.use(express.bodyParser());
-
-  server.use(express.methodOverride());
-
   // ## Middleware
   middleware(server, _config);
 
@@ -38,10 +30,6 @@ init = function (server) {
     res.render('index.ect');
     // res.sendfile('index.html', {root: server.get('views')});
   });
-
-  // ## Error Handler
-  // Picks up any left over errors and returns a nicely formatted server 500 error
-  server.use(express.errorHandler());
 
   function startServer () {
     server.set('port', _config.server.port);
