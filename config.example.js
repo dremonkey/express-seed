@@ -11,7 +11,13 @@ config = {};
 
 // ## Development Environment Configurations
 config.development = {
-  db: {},
+  db: {
+    name: '', // db name
+    host: '', // db host
+    user: '', // db username
+    port: 5432, // db port
+    password: '' // db password
+  },
   dirs: {
     views: path.resolve(__dirname, './views'),
     static: path.resolve(__dirname, './assets')

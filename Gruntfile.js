@@ -45,6 +45,7 @@ module.exports = function (grunt) {
         files: [
           'server.js',
           'middleware/**/*.js',
+          'models/**/*.js',
           'routes/**/*.js',
           'utils/**/*.js'
         ],
