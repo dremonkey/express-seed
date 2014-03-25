@@ -35,9 +35,16 @@ GIT Branches
 
 Basic server seed. Assumes that you will be compiling your view files server side. Currently there is no grunt compilation/packaging for client side javascript/css files, or even a directory for them right now. This was meant to be as simple a server seed as possible.
 
-### SPA (Single Page Application)
+### SPA (For Single Page Applications)
 
-For the most part exactly the same as the master branch. Only real difference is that by default all routes go to the index page so that your clientside framework can take care of routing. My preferred framework is AngularJS, so this is designed to work with my [angular seed app](https://github.com/dremonkey/particle-angular-seed).
+Differences from Master
+- All routes by default go to the index page so your clientside framework can take care of routing. My preferred framework is AngularJS, so this is designed to work with my [angular seed app](https://github.com/dremonkey/particle-angular-seed).
+
+### Postgres-DB (Work in Progress)
+
+Differences from Master
+- Added 'models' directory
+- Helpers to connect to a PostgresDB and make queries
 
 More Info
 ---------
