@@ -1,10 +1,11 @@
 'use strict';
 
 // Module dependencies
-var _ = require('lodash');
-  , express = require('express');
-  , livereload = require('./livereload');
+var express = require('express');
   , prerender = require('prerender-node');
+  
+var livereload = require('./livereload');
+// var enableCORS = require('./enableCORS');
 
 var middleware = function (server, config) {
 
@@ -24,7 +25,10 @@ var middleware = function (server, config) {
   server.use(express.urlencoded());
 
   server.use(express.methodOverride());
-  
+
+  // allow CORS
+  // server.use(enableCORS);
+
   // ## Views
   var viewEngine;
 

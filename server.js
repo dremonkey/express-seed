@@ -1,18 +1,19 @@
 'use strict';
 
-var config, express, http, init, log, middleware, routes;
-
 // Module dependencies
-config = require('./config/index.js');
-express = require('express');
-http = require('http');
-log = require('./utils/logger');
-middleware = require('./middleware');
-routes = require('./routes');
+var express = require('express')
+  , http = require('http');
+
+var Config = require('./config/index.js')
+  , log = require('./utils/logger')
+  , middleware = require('./middleware')
+  , routes = require('./routes');
+
+var config = new Config();
 
 // Sets up the express server instance
 // Instantiates the routes, middleware, and starts the http server
-init = function (server) {
+function init (server) {
 
   var _config;
 
@@ -39,7 +40,7 @@ init = function (server) {
 
   // Start the server
   startServer();
-};
+}
 
 // Initializes the server
 config.load().then(function () {

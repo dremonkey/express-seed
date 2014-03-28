@@ -40,7 +40,7 @@ Basic server seed. Assumes that you will be compiling your view files server sid
 Differences from Master
 - All routes by default go to the index page so your clientside framework can take care of routing. My preferred framework is AngularJS, so this is designed to work with my [angular seed app](https://github.com/dremonkey/particle-angular-seed).
 
-### Postgres-DB (Work in Progress)
+### DB-Postgres (Work in Progress)
 
 Differences from Master
 - Added 'models' directory

@@ -1,35 +1,47 @@
 'use strict';
 
-// ## Improves on console.log
-
-var log, colors;
+/* jshint unused:false */
 
 // Module Dependencies
-colors = require('colors');
+var util = require('util')
+  , colors = require('colors');
 
-log = {
-  info: function (info, context) {
-    console.log('\nInfo:'.blue, info.blue);
-    if (context) console.log(context.white);
-    console.log(''); // add a new line
-  },
-  warn: function (warn, context) {
-    console.log('\nWarning:'.yellow, warn.yellow);
-    if (context) console.log(context.white);
-    console.log(''); // add a new line
-  },
-  error: function (err, context) {
-    var stack = err ? err.stack : null;
-    if (err) {
-      err = err.message || err || 'An unknown error occurred.';
-    } else {
-      err = 'An unknown error occurred.';
+var log = {
+  info: function () {
+
+    var output = ''
+      , args = Array.prototype.slice.call(arguments);
+
+    for (var i = 0; i < args.length; i++) {
+      output += util.inspect(args[i]) + '\n';
     }
 
-    console.error('\nERROR:'.red, err.red);
-    if (context) console.log(context.white);
+    console.log(''); // add a new line
+    console.log('Info:'.blue, output.blue);
+  },
+  warn: function () {
+
+    var output = ''
+      , args = Array.prototype.slice.call(arguments);
+
+    for (var i = 0; i < args.length; i++) {
+      output += util.inspect(args[i]) + '\n';
+    }
+
+    console.log(''); // add a new line
+    console.log('Warning:'.yellow, output.yellow);
+  },
+  error: function () {
+
+    var output = ''
+      , args = Array.prototype.slice.call(arguments);
+
+    for (var i = 0; i < args.length; i++) {
+      output += util.inspect(args[i]) + '\n';
+    }
+
     console.error(''); // add a new line
-    if (stack) console.error(stack, '\n');
+    console.error('ERROR:'.red, output.red);
   }
 };
 
