@@ -1,9 +1,9 @@
 'use strict';
 
 // Module dependencies
-var express = require('express')
-  , livereload = require('./livereload');
-  
+var express = require('express');
+
+var livereload = require('./livereload');  
 // var enableCORS = require('./enableCORS');
 
 var middleware = function (server, config) {
