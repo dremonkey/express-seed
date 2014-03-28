@@ -5,6 +5,7 @@ var Model = require('../models/base');
 
 module.exports = function (server, config) {
   server.get('/api/example', function (req, res) {
+    
     var model = new Model(config.db);
     model.testConnection();
 

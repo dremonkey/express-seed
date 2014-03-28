@@ -6,6 +6,8 @@
 var pg = require('pg') // Postgres DB bindings
   , bookshelf = require('bookshelf'); // ORM
 
+var log = require('../utils/logger');
+
 function Model (dbconfig) {
   this._config = dbconfig;
 }
@@ -25,7 +27,8 @@ Model.prototype.testConnection = function () {
     if(err) {
       return console.error('error running query', err);
     }
-    console.log(result.rows[0].numbor); // returns 1
+
+    log.info('Successful Database Connection Test');
   });
 
   // disconnect client manually
