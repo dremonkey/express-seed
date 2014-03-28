@@ -12,7 +12,7 @@ config = {};
 // ## Development Environment Configurations
 config.development = {
   db: {
-    name: '', // db name
+    database: '', // db name
     host: '', // db host
     user: '', // db username
     port: 5432, // db port

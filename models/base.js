@@ -10,43 +10,26 @@ function Model (dbconfig) {
   this._config = dbconfig;
 }
 
-/** 
- * Builds the connection string
- *
- * Format is postgres://user:password@host:port/dbname
- */
-Model.prototype.getConnectionString = function () {
-  var config = this._config;
-  
-  var auth = config.user + ':' + config.password
-    , fullhost = config.host + ':' + config.port
-    , connectString = 'postgres://' + auth + '@' + fullhost + '/' + config.name;
+Model.prototype.getClient = function () {
+  var params = this._config;
+  params.ssl = true; // needed when trying to connect from local to heroku
 
-  return connectString;
+  return new pg.Client(params);
 };
 
 Model.prototype.testConnection = function () {
-  var connectString = this.getConnectionString();
+  var client = this.getClient();
+  client.connect();
 
-  console.log('**** connectString');
-  console.log(connectString);
-
-  pg.connect(connectString, function (err, client, done) {
-    if (err) {
-      return console.error('error fetching client from pool', err);
+  var query = client.query('SELECT $1::int AS numbor', ['1'], function(err, result) {
+    if(err) {
+      return console.error('error running query', err);
     }
-
-    client.query('SELECT $1::int AS numbor', ['1'], function(err, result) {
-      //call `done()` to release the client back to the pool
-      done();
-
-      if(err) {
-        return console.error('error running query', err);
-      }
-
-      console.log(result.rows[0].numbor);
-    });
+    console.log(result.rows[0].numbor); // returns 1
   });
+
+  // disconnect client manually
+  query.on('end', client.end.bind(client));
 };
 
 module.exports = Model;
