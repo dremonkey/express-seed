@@ -4,7 +4,8 @@
 var express = require('express')
   , http = require('http');
 
-var Config = require('./config/index.js')
+var database = require('./models/db')
+  , Config = require('./config/index')
   , log = require('./utils/logger')
   , middleware = require('./middleware')
   , routes = require('./routes');
@@ -19,6 +20,9 @@ function init (server) {
 
   // Retrieve the configuration object
   _config = config.get();
+
+  // ## Initialize the Database
+  database(_config.db);
 
   // ## Middleware
   middleware(server, _config);
