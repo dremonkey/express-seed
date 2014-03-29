@@ -3,7 +3,7 @@
 // Module dependencies
 var express = require('express');
 
-var livereload = require('./livereload');  
+var livereload = require('./livereload');
 // var enableCORS = require('./enableCORS');
 
 var middleware = function (server, config) {
