@@ -1,4 +1,4 @@
-Particle Express Seed
+Express Seed
 =====================
 
 This is a simple express server seed with multiple environment configurations and yeoman/grunt integration. The main purpose of this is to serve as a server seed for other projects. Grunt tasks handle code validation and reloading on file changes.
