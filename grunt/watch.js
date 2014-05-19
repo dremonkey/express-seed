@@ -3,10 +3,11 @@
 module.exports = {
   express: {
     files: [
-      'server.js',
+      'app/**/*.js',
       'middleware/**/*.js',
       'models/**/*.js',
       'routes/**/*.js',
+      'server.js',
       'utils/**/*.js'
     ],
     tasks:  ['express:dev']
