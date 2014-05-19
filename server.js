@@ -7,7 +7,7 @@ var express = require('express')
 var Config = require('./config/index.js')
   , log = require('./utils/logger')
   , middleware = require('./middleware')
-  , routes = require('./routes');
+  , routes = require('./app/routes');
 
 var config = new Config();
 
