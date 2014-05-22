@@ -1,7 +1,5 @@
 'use strict';
 
-// var paths = require('./paths');
-
 module.exports = {
   // Copy files from server -> heroku/server
   heroku: {
@@ -9,12 +7,14 @@ module.exports = {
       expand: true,
       cwd: '<%= paths.server.tld %>',
       src: [
+        'app/**/*.js',
         'config/**/*.js',
         'utils/**/*.js',
         'middleware/**/*.js',
-        'server.js'
+        'server.js',
+        'config.js'
       ],
-      dest: '<%= paths.heroku.dirs.server %>'
+      dest: '<%= paths.heroku.tld %>/server'
     }]
   },
 
@@ -23,12 +23,14 @@ module.exports = {
       expand: true,
       cwd: '<%= paths.server.tld %>',
       src: [
+        'app/**/*.js',
         'config/**/*.js',
         'utils/**/*.js',
         'middleware/**/*.js',
-        'server.js'
+        'server.js',
+        'config.js'
       ],
-      dest: '<%= paths.azure.dirs.server %>'
+      dest: '<%= paths.azure.tld %>/server'
     }]
   }
 };
