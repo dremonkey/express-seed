@@ -30,7 +30,7 @@ server.all('/*', function (req, res) {
 
 // Start the server
 server.set('port', cfg.server.port);
-var instance = http.createServer(server).listen(server.get('port'), function () {
+http.createServer(server).listen(server.get('port'), function () {
   log.info('Express server listening on port ' + server.get('port'));
 });
 
