@@ -13,8 +13,8 @@ config = {};
 config.development = {
   db: {},
   dirs: {
-    views: path.resolve(__dirname, './views'),
-    static: path.resolve(__dirname, './assets')
+    views: path.resolve(__dirname, './app/views'),
+    static: path.resolve(__dirname, './app/assets')
   },
   livereload: 35729,
   prerender: {
@@ -35,8 +35,8 @@ config.development = {
 config.production = {
   db: {},
   dirs: {
-    views: path.resolve(__dirname, './views'),
-    static: path.resolve(__dirname, './assets')
+    views: path.resolve(__dirname, './app/views'),
+    static: path.resolve(__dirname, './app/assets')
   },
   livereload: false,
   prerender: {

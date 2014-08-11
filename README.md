@@ -1,7 +1,7 @@
-Particle Express Seed - SPA
-===========================
+Express Seed
+=====================
 
-This is a simple express server seed with multiple environment configurations and yeoman/grunt integration. The main purpose of this is to serve as a server seed for other projects. Grunt tasks handle code validation and reloading on file changes.
+This is a simple express server seed with multiple environment configurations and grunt integration. The main purpose of this is to serve as a server seed for other projects. Grunt tasks handle code validation and reloading on file changes.
 
 ### Features
 - Grunt
@@ -38,7 +38,7 @@ Basic server seed. Assumes that you will be compiling your view files server sid
 ### SPA (For Single Page Applications)
 
 Differences from Master
-- All routes by default go to the index page so your clientside framework can take care of routing. My preferred framework is AngularJS, so this is designed to work with my [angular seed app](https://github.com/dremonkey/particle-angular-seed).
+- All routes by default go to the index page so your clientside framework can take care of routing. My preferred framework is AngularJS, so this is designed to work with my [angular seed app](https://github.com/dremonkey/angular-seed).
 
 ### DB-Postgres (Work in Progress)
 
