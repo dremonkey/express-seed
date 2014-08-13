@@ -11,7 +11,10 @@ config = {};
 
 // ## Development Environment Configurations
 config.development = {
-  db: {},
+  firebase: {
+    url: '',
+    secret: ''
+  },
   dirs: {
     views: path.resolve(__dirname, './app/views'),
     static: path.resolve(__dirname, './app/assets')
@@ -33,7 +36,10 @@ config.development = {
 
 // ## Production Environment Configurations
 config.production = {
-  db: {},
+  firebase: {
+    url: '',
+    secret: ''
+  },
   dirs: {
     views: path.resolve(__dirname, './app/views'),
     static: path.resolve(__dirname, './app/assets')
