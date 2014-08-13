@@ -2,7 +2,7 @@
 
 // Module dependencies
 var express = require('express');
-  , prerender = require('prerender-node');
+var prerender = require('prerender-node');
   
 var livereload = require('./livereload');
 // var enableCORS = require('./enableCORS');
@@ -37,19 +37,19 @@ var middleware = function (server, config) {
 
   // view engine
   switch (config.viewEngine) {
-    case 'jade':
-      server.set('view engine', 'jade');
-      break;
-    case 'ect':
-      viewEngine = require('ect')({watch: true, root: server.get('views')});
-      server.engine('ect', viewEngine.render);
-      server.set('view engine', 'ect');
-      break;
-    case 'html' :
-      viewEngine = require('ect')({watch: true, root: server.get('views')});
-      server.engine('html', viewEngine.render); // assign ect as the engine for html files
-      server.set('view engine', 'html'); // set .html as the default extension
-      break;
+  case 'jade':
+    server.set('view engine', 'jade');
+    break;
+  case 'ect':
+    viewEngine = require('ect')({watch: true, root: server.get('views')});
+    server.engine('ect', viewEngine.render);
+    server.set('view engine', 'ect');
+    break;
+  case 'html' :
+    viewEngine = require('ect')({watch: true, root: server.get('views')});
+    server.engine('html', viewEngine.render); // assign ect as the engine for html files
+    server.set('view engine', 'html'); // set .html as the default extension
+    break;
   }
 
   // ## Livereload 

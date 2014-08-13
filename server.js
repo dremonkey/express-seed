@@ -1,13 +1,13 @@
 'use strict';
 
 // ## Module dependencies
-var express = require('express')
-  , http = require('http');
+var express = require('express');
+var http = require('http');
 
-var Config = require('./config/index.js')
-  , log = require('./utils/logger')
-  , middleware = require('./middleware')
-  , routes = require('./app/routes');
+var Config = require('./config/index.js');
+var log = require('./utils/logger');
+var middleware = require('./middleware');
+var routes = require('./app/routes');
 
 var cfg = new Config().getSync();
 
